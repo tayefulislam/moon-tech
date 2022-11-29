@@ -5,10 +5,6 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const [data, setData] = useState([]);
 
-  const test = useSelector((state) => state);
-
-  console.log(test);
-
   useEffect(() => {
     fetch("products.json")
       .then((res) => res.json())
@@ -16,6 +12,9 @@ const Home = () => {
   }, []);
 
   console.log(data);
+
+  const products = useSelector((state) => state);
+  console.log(products);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl gap-14 mx-auto my-10">
