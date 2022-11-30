@@ -6,7 +6,7 @@ import {
 const initialState = {
   cart: [],
 };
-
+console.log("from reducer", initialState);
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
@@ -16,7 +16,12 @@ const ProductReducer = (state = initialState, action) => {
       };
 
     case REMOVE_FROM_CART: {
-      return {};
+      return {
+        ...state,
+        cart: state.cart.filter(
+          (product) => product._id !== action.payload._id
+        ),
+      };
     }
     default:
       return state;
