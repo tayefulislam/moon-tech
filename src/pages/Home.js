@@ -32,7 +32,7 @@ const Home = () => {
   // }
 
   if (products.length > 0) {
-    content = products.map((product, index) => (
+    content = products?.map((product, index) => (
       <ProductCard product={product} key={index}></ProductCard>
     ));
   }
