@@ -11,7 +11,7 @@ const Home = () => {
       .then((data) => setData(data));
   }, []);
 
-  console.log(data);
+  console.log("Home", data);
 
   const products = useSelector((state) => state);
   console.log(products);
