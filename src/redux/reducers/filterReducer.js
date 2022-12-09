@@ -24,13 +24,21 @@ const filterReducer = (state = initialState, action) => {
           ...state,
           filters: {
             ...state.filters,
-            brands: state.filters.brands.filter((brand) => brand),
+            brands: state.filters.brands.filter(
+              (brand) => brand !== action.payload
+            ),
           },
         };
       }
 
     case TOGGLE_STOCK:
-      return {};
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          stock: !state.filters.stock,
+        },
+      };
     default:
       return state;
   }

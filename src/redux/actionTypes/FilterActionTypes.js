@@ -7,9 +7,8 @@ export const toggleBrand = (brand) => {
   };
 };
 
-export const toggleStock = (stock) => {
+export const toggleStock = () => {
   return {
     type: TOGGLE_STOCK,
-    payload: stock,
   };
 };
