@@ -18,8 +18,8 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-  console.log(state);
+  const { brands, stock } = useSelector((state) => state.filter).filters;
+  console.log(brands);
 
   const activeClass = "text-white  bg-indigo-500 border-white";
 
@@ -28,13 +28,15 @@ const Home = () => {
       <div className="mb-10 flex justify-end gap-5">
         <button
           onClick={() => dispatch(toggleStock())}
-          className={`border px-3 py-2 rounded-full font-semibold ${activeClass} `}
+          className={`border px-3 py-2 rounded-full font-semibold ${
+            stock ? activeClass : null
+          } `}
         >
           In Stock
         </button>
         <button
           onClick={() => dispatch(toggleBrand("amd"))}
-          className={`border px-3 py-2 rounded-full font-semibold`}
+          className={`border px-3 py-2 rounded-full font-semibold ${brands.incl}`}
         >
           AMD
         </button>
