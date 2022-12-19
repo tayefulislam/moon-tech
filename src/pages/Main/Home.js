@@ -30,10 +30,20 @@ const Home = () => {
     ));
   }
 
-  if (products.length > 0 && (stock || brands)) {
+  if (products.length > 0 && (stock || brands.length)) {
     content = products
-      .filter((product) => product.status === true)
-      .filter((product) => brands.includes(product.brand))
+      .filter((product) => {
+        if (stock) {
+          return product.status === true;
+        }
+        return product;
+      })
+      .filter((product) => {
+        if (brands.length) {
+          return brands.includes(product.brand);
+        }
+        return product;
+      })
       .map((product) => (
         <ProductCard key={product.model} product={product}></ProductCard>
       ));
@@ -53,13 +63,17 @@ const Home = () => {
         </button>
         <button
           onClick={() => dispatch(toggleBrand("amd"))}
-          className={`border px-3 py-2 rounded-full font-semibold ${brands.incl}`}
+          className={`border px-3 py-2 rounded-full font-semibold ${
+            brands.includes("amd") ? activeClass : null
+          }`}
         >
           AMD
         </button>
         <button
           onClick={() => dispatch(toggleBrand("intel"))}
-          className={`border px-3 py-2 rounded-full font-semibold`}
+          className={`border px-3 py-2 rounded-full font-semibold ${
+            brands.includes("intel") ? activeClass : null
+          }`}
         >
           Intel
         </button>
