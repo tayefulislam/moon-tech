@@ -1,36 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/ProductCard";
+import { loadProduct } from "../../redux/actionCreators/productActions";
 import {
   toggleBrand,
   toggleStock,
 } from "../../redux/actionTypes/FilterActionTypes";
+import loadProductsData from "../../redux/thunk/products/fetchProducts";
+
 // import { TOGGLE_STOCK } from "../../redux/actionTypes/ProductActionsTypes";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  // const [products, setProducts] = useState([]);
 
   const dispatch = useDispatch();
 
   const { brands, stock } = useSelector((state) => state.filter).filters;
-  console.log(brands, stock);
+  const products = useSelector((state) => state.product.products);
+
+  // console.log(brands, stock);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/products")
+  //     .then((res) => res.json())
+  //     .then((data) => dispatch(loadProduct(data)));
+  // }, []);
+
+  useEffect(() => {
+    dispatch(loadProductsData());
+  }, [dispatch]);
 
   const activeClass = "text-white  bg-indigo-500 border-white";
 
   let content;
-  if (products.length > 0) {
-    content = products.map((product) => (
+  if (products?.length > 0) {
+    content = products?.map((product) => (
       <ProductCard key={product.model} product={product} />
     ));
   }
 
-  if (products.length > 0 && (stock || brands.length)) {
+  if (products?.length > 0 && (stock || brands.length)) {
     content = products
       .filter((product) => {
         if (stock) {
